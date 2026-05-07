@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kavishka Madhushan — Portfolio</title>
+<meta name="description" content="Portfolio of Kavishka Madhushan — Graphic Designer, HRM Student, Creative Tech Enthusiast">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { inter: ['Inter','sans-serif'], poppins: ['Poppins','sans-serif'] },
+      colors: {
+        navy: { 900:'#060612', 800:'#0a0a1e', 700:'#0f0f2a', 600:'#141436' },
+        accent: { cyan:'#00d4ff', blue:'#4f7cff', purple:'#8b5cf6', pink:'#c084fc' },
+        glass: { light:'rgba(255,255,255,0.04)', med:'rgba(255,255,255,0.07)', heavy:'rgba(255,255,255,0.10)' },
+        txt: { primary:'#f0f0f8', secondary:'#8888aa', muted:'#5a5a80' }
+      }
+    }
+  }
+}
+</script>
+<style>
+:root {
+  --bg: #060612; --bg2: #0a0a1e; --accent: #00d4ff; --accent2: #4f7cff;
+  --accent3: #8b5cf6; --glow: 0 0 30px rgba(0,212,255,0.25); --glow2: 0 0 30px rgba(79,124,255,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: #f0f0f8; overflow-x: hidden; cursor: none; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,212,255,0.4); }
+::selection { background: rgba(0,212,255,0.3); color: #fff; }
+
+#loader { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s, visibility 0.6s; }
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-ring { width: 50px; height: 50px; border: 2px solid rgba(255,255,255,0.05); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+.loader-name { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.05em; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.cursor-dot { position: fixed; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 10001; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s, background 0.2s; }
+.cursor-ring { position: fixed; width: 36px; height: 36px; border: 1.5px solid rgba(0,212,255,0.4); border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s; }
+.cursor-dot.hover { width: 10px; height: 10px; background: #fff; }
+.cursor-ring.hover { width: 50px; height: 50px; border-color: rgba(0,212,255,0.7); background: rgba(0,212,255,0.05); }
+@media (max-width: 768px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
+
+#particles { position: fixed; inset: 0; z-index: 0; }
+
+.blob { position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.15; pointer-events: none; z-index: 0; }
+.blob-1 { width: 500px; height: 500px; background: var(--accent); top: -100px; left: -100px; animation: blobFloat1 20s ease-in-out infinite; }
+.blob-2 { width: 400px; height: 400px; background: var(--accent2); bottom: -50px; right: -100px; animation: blobFloat2 25s ease-in-out infinite; }
+.blob-3 { width: 350px; height: 350px; background: var(--accent3); top: 50%; left: 50%; animation: blobFloat3 22s ease-in-out infinite; }
+@keyframes blobFloat1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(100px,80px) scale(1.1); } 66% { transform: translate(-50px,120px) scale(0.9); } }
+@keyframes blobFloat2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-80px,-60px) scale(1.15); } 66% { transform: translate(60px,-100px) scale(0.85); } }
+@keyframes blobFloat3 { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-30%,-70%) scale(1.2); } }
+
+#mouse-light { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%); pointer-events: none; z-index: 1; transform: translate(-50%,-50%); transition: opacity 0.3s; }
+
+.glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; }
+.glass:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.10); }
+.glass-strong { background: rgba(255,255,255,0.06); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; }
+
+.gradient-text { background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+.btn-glow { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; overflow: hidden; }
+.btn-glow::before { content: ''; position: absolute; inset: 0; border-radius: 12px; padding: 1px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.btn-glow-primary { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(79,124,255,0.15)); color: var(--accent); }
+.btn-glow-primary:hover { background: linear-gradient(135deg, rgba(0,212,255,0.3), rgba(79,124,255,0.3)); box-shadow: var(--glow); transform: translateY(-2px); }
+.btn-glow-ghost { background: rgba(255,255,255,0.04); color: #f0f0f8; border: 1px solid rgba(255,255,255,0.1); }
+.btn-glow-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+.btn-whatsapp { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; overflow: hidden; background: linear-gradient(135deg, rgba(37,211,102,0.15), rgba(37,211,102,0.08)); color: #25d366; border: 1px solid rgba(37,211,102,0.2); }
+.btn-whatsapp::before { content: ''; position: absolute; inset: 0; border-radius: 12px; padding: 1px; background: linear-gradient(135deg, #25d366, #128c7e); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.btn-whatsapp:hover { background: linear-gradient(135deg, rgba(37,211,102,0.3), rgba(37,211,102,0.15)); box-shadow: 0 0 30px rgba(37,211,102,0.25); transform: translateY(-2px); }
+
+.section-padding { padding: 6rem 1.5rem; }
+@media (min-width: 768px) { .section-padding { padding: 8rem 2rem; } }
+.section-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.75rem; }
+.section-subtitle { color: #8888aa; font-size: 1rem; max-width: 600px; }
+
+.typing-cursor { display: inline-block; width: 3px; height: 1.2em; background: var(--accent); margin-left: 2px; vertical-align: text-bottom; animation: blink 0.8s step-end infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+.skill-bar-bg { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+.skill-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0; transition: width 1.5s cubic-bezier(0.22,1,0.36,1); }
+
+.timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3), transparent); }
+@media (min-width: 768px) { .timeline-line { left: 50%; transform: translateX(-50%); } }
+.timeline-dot { position: absolute; left: 12px; top: 24px; width: 18px; height: 18px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); z-index: 2; }
+.timeline-dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent); }
+@media (min-width: 768px) { .timeline-dot { left: 50%; transform: translateX(-50%); } }
+
+.social-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); color: #8888aa; font-size: 1.1rem; transition: all 0.3s; }
+.social-icon:hover { color: var(--accent); border-color: rgba(0,212,255,0.3); background: rgba(0,212,255,0.08); box-shadow: var(--glow); transform: translateY(-4px); }
+
+.nav-link { position: relative; color: #8888aa; transition: color 0.3s; font-size: 0.875rem; font-weight: 500; }
+.nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 2px; background: var(--accent); border-radius: 1px; transition: all 0.3s; transform: translateX(-50%); }
+.nav-link:hover, .nav-link.active { color: #f0f0f8; }
+.nav-link.active::after, .nav-link:hover::after { width: 100%; }
+
+#scrollTop { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 12px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); color: var(--accent); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.3s; cursor: none; }
+#scrollTop.visible { opacity: 1; visibility: visible; }
+#scrollTop:hover { background: rgba(0,212,255,0.2); box-shadow: var(--glow); transform: translateY(-3px); }
+
+.tilt-card { transform-style: preserve-3d; perspective: 1000px; }
+.tilt-card-inner { transition: transform 0.1s ease-out; transform-style: preserve-3d; }
+
+.reveal { opacity: 0; transform: translateY(40px); }
+.reveal-scale { opacity: 0; transform: scale(0.9); }
+
+.float { animation: float 6s ease-in-out infinite; }
+.float-delay { animation: float 6s ease-in-out 2s infinite; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .blob { display: none; }
+  #particles { display: none; }
+}
+
+#mobile-menu { position: fixed; inset: 0; z-index: 90; background: rgba(6,6,18,0.95); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; visibility: hidden; transition: all 0.4s; }
+#mobile-menu.open { opacity: 1; visibility: visible; }
+#mobile-menu a { font-size: 1.25rem; color: #f0f0f8; font-weight: 500; transition: color 0.3s; }
+#mobile-menu a:hover { color: var(--accent); }
+</style>
+</head>
+<body class="font-inter antialiased">
+
+<div id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-name">KAVISHKA MADHUSHAN</div>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div id="particles"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+<div id="mouse-light"></div>
+<button id="scrollTop" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="mobile-menu">
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#education" onclick="closeMobile()">Education</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<nav id="navbar" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+  <div class="glass-strong px-5 py-3 flex items-center justify-between" style="border-radius:16px;">
+    <a href="#home" class="font-poppins font-bold text-lg gradient-text tracking-tight">KM</a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="#home" class="nav-link active" data-section="home">Home</a>
+      <a href="#about" class="nav-link" data-section="about">About</a>
+      <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+      <a href="#education" class="nav-link" data-section="education">Education</a>
+      <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+      <a href="#services" class="nav-link" data-section="services">Services</a>
+      <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+    </div>
+    <button id="hamburger" class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-xl" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);" aria-label="Toggle menu">
+      <span class="block w-5 h-0.5 bg-white rounded transition-all" id="ham1"></span>
+      <span class="block w-5 h-0.5 bg-white rounded transition-all" id="ham2"></span>
+      <span class="block w-3.5 h-0.5 bg-white rounded transition-all ml-auto mr-[10px]" id="ham3"></span>
+    </button>
+  </div>
+</nav>
+
+<main class="relative z-10">
+
+  <!-- HERO -->
+  <section id="home" class="min-h-screen flex items-center justify-center section-padding pt-28 pb-16 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <div class="flex-1 text-center lg:text-left">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-4 reveal">Welcome to my portfolio</p>
+        <h1 class="font-poppins font-bold leading-tight mb-5 reveal" style="font-size:clamp(2.2rem,5.5vw,3.8rem);">
+          Hi, I'm <span class="gradient-text">Kavishka</span><br>Madhushan
+        </h1>
+        <p class="text-txt-secondary text-base md:text-lg mb-2 reveal" style="transition-delay:0.1s;">
+          Graphic Designer &bull; HRM Student &bull; Creative Tech Enthusiast
+        </p>
+        <div class="h-8 mb-6 reveal" style="transition-delay:0.15s;">
+          <span class="text-txt-muted text-sm">Exploring </span>
+          <span id="typing-text" class="text-accent-cyan font-semibold text-sm"></span>
+          <span class="typing-cursor"></span>
+        </div>
+        <div class="flex flex-wrap gap-3 justify-center lg:justify-start reveal" style="transition-delay:0.2s;">
+          <a href="#contact" class="btn-glow btn-glow-primary"><i class="fas fa-envelope text-xs"></i> Contact Me</a>
+          <a href="#services" class="btn-glow btn-glow-ghost"><i class="fas fa-briefcase text-xs"></i> View Services</a>
+          <a href="#" class="btn-glow btn-glow-ghost" id="downloadCV"><i class="fas fa-download text-xs"></i> Download CV</a>
+        </div>
+      </div>
+      <div class="flex-shrink-0 reveal-scale float" style="transition-delay:0.3s;">
+        <div class="glass-strong p-6 w-[280px] md:w-[320px]" style="border-radius:24px;">
+          <div class="w-24 h-24 mx-auto rounded-2xl overflow-hidden mb-4 border-2 border-accent-cyan/20" style="box-shadow:var(--glow);">
+            <img src="Gemini_Generated_Image_qtjkafqtjkafqtjk(3).png" alt="Kavishka Madhushan" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <h3 class="font-poppins font-bold text-center text-lg mb-1">Kavishka Madhushan</h3>
+          <p class="text-txt-muted text-sm text-center mb-4">Meegoda, Sri Lanka</p>
+          <div class="grid grid-cols-3 gap-3 mb-4">
+            <div class="text-center p-2 rounded-xl" style="background:rgba(255,255,255,0.03);">
+              <div class="text-accent-cyan font-bold text-lg counter" data-target="9">0</div>
+              <div class="text-txt-muted text-[10px] uppercase tracking-wider">Skills</div>
+            </div>
+            <div class="text-center p-2 rounded-xl" style="background:rgba(255,255,255,0.03);">
+              <div class="text-accent-blue font-bold text-lg counter" data-target="5">0</div>
+              <div class="text-txt-muted text-[10px] uppercase tracking-wider">Services</div>
+            </div>
+            <div class="text-center p-2 rounded-xl" style="background:rgba(255,255,255,0.03);">
+              <div class="text-accent-purple font-bold text-lg counter" data-target="3">0</div>
+              <div class="text-txt-muted text-[10px] uppercase tracking-wider">Certs</div>
+            </div>
+          </div>
+          <div class="flex justify-center gap-2">
+            <a href="mailto:kavishkam734@gmail.com" class="social-icon w-9 h-9 text-sm" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="#" class="social-icon w-9 h-9 text-sm" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/mkavishka778-rgb" class="social-icon w-9 h-9 text-sm" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://wa.me/94755210975?" class="social-icon w-9 h-9 text-sm" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+      <span class="text-txt-muted text-xs tracking-widest uppercase">Scroll</span>
+      <div class="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
+        <div class="w-1 h-2 rounded-full bg-accent-cyan" style="animation: scrollDot 1.5s ease-in-out infinite;"></div>
+      </div>
+    </div>
+    <style>@keyframes scrollDot { 0%,100%{transform:translateY(0);opacity:1;} 50%{transform:translateY(6px);opacity:0.3;} }</style>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section-padding">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">About Me</p>
+        <h2 class="section-title gradient-text reveal">Who I Am</h2>
+        <p class="section-subtitle mx-auto reveal">A motivated and detail-oriented individual passionate about design, technology, and continuous growth.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="glass p-6 tilt-card reveal" style="transition-delay:0.05s;">
+          <div class="tilt-card-inner">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-accent-cyan" style="background:rgba(0,212,255,0.08);"><i class="fas fa-palette text-lg"></i></div>
+            <h3 class="font-poppins font-semibold text-base mb-2">Creative Soul</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">I see the world through a creative lens, finding beauty in design and expressing ideas through visual storytelling and digital arts.</p>
+          </div>
+        </div>
+        <div class="glass p-6 tilt-card reveal" style="transition-delay:0.1s;">
+          <div class="tilt-card-inner">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-accent-blue" style="background:rgba(79,124,255,0.08);"><i class="fas fa-microchip text-lg"></i></div>
+            <h3 class="font-poppins font-semibold text-base mb-2">Graphic Designre</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">Create professional designs for businesses, personal goals.</p>
+          </div>
+        </div>
+        <div class="glass p-6 tilt-card reveal" style="transition-delay:0.15s;">
+          <div class="tilt-card-inner">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-accent-purple" style="background:rgba(139,92,246,0.08);"><i class="fas fa-brain text-lg"></i></div>
+            <h3 class="font-poppins font-semibold text-base mb-2">AI Explorer</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">Passionate about artificial intelligence and its transformative potential. Actively learning AI concepts and integrating them into my workflow.</p>
+          </div>
+        </div>
+        <div class="glass p-6 tilt-card reveal" style="transition-delay:0.2s;">
+          <div class="tilt-card-inner">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-accent-pink" style="background:rgba(192,132,252,0.08);"><i class="fas fa-users text-lg"></i></div>
+            <h3 class="font-poppins font-semibold text-base mb-2">Team Collaborator</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">Strong communication skills and the ability to work seamlessly within teams. I value collaboration and believe the best results come from collective effort.</p>
+          </div>
+        </div>
+        <div class="glass p-6 tilt-card reveal md:col-span-2" style="transition-delay:0.25s;">
+          <div class="tilt-card-inner">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-green-400" style="background:rgba(74,222,128,0.08);"><i class="fas fa-seedling text-lg"></i></div>
+            <h3 class="font-poppins font-semibold text-base mb-2">Growth Mindset</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">Committed to continuous professional development. From graphic design to HRM to AI — I embrace every opportunity to learn, adapt, and evolve in this fast-changing world.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section-padding" style="background:linear-gradient(180deg, transparent 0%, rgba(0,212,255,0.015) 50%, transparent 100%);">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">My Skills</p>
+        <h2 class="section-title gradient-text reveal">What I Bring</h2>
+        <p class="section-subtitle mx-auto reveal">A diverse skill set spanning design, technology, and management.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="skills-grid"></div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section-padding">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">Education</p>
+        <h2 class="section-title gradient-text reveal">Academic Journey</h2>
+      </div>
+      <div class="relative pl-12 md:pl-0">
+        <div class="timeline-line"></div>
+        <div class="relative mb-12 reveal">
+          <div class="timeline-dot"></div><br>
+          <div class="md:w-[calc(50%-40px)] md:ml-auto">
+            <div class="glass p-6">
+              <span class="text-accent-cyan text-xs font-semibold tracking-wider uppercase">2024</span>
+              <h3 class="font-poppins font-semibold text-lg mt-1">IHRM Institute — Sri Lanka</h3>
+              <p class="text-accent-blue text-sm font-medium mt-1">Diploma in Human Resource Management (Dip.HRM)</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="text-xs px-2.5 py-1 rounded-lg" style="background:rgba(0,212,255,0.06);color:#8888aa;border:1px solid rgba(255,255,255,0.04);">HRM</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg" style="background:rgba(0,212,255,0.06);color:#8888aa;border:1px solid rgba(255,255,255,0.04);">Organisational Behaviour</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg" style="background:rgba(0,212,255,0.06);color:#8888aa;border:1px solid rgba(255,255,255,0.04);">Business Management</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg" style="background:rgba(0,212,255,0.06);color:#8888aa;border:1px solid rgba(255,255,255,0.04);">Labour Law</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg" style="background:rgba(0,212,255,0.06);color:#8888aa;border:1px solid rgba(255,255,255,0.04);">MIS</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg" style="background:rgba(0,212,255,0.06);color:#8888aa;border:1px solid rgba(255,255,255,0.04);">Business Psychology</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative mb-12 reveal" style="transition-delay:0.1s;">
+          <div class="timeline-dot" style="border-color:var(--accent2);"></div><br>
+          <div class="md:w-[calc(50%-40px)] md:mr-auto">
+            <div class="glass p-6">
+              <span class="text-accent-blue text-xs font-semibold tracking-wider uppercase">2025 &bull; Passed</span>
+              <h3 class="font-poppins font-semibold text-lg mt-1">G.C.E Ordinary Level Examination</h3>
+              <p class="text-txt-secondary text-sm mt-2">Results: <span class="text-accent-cyan font-semibold">1A, 2B, 4C, 2S</span></p>
+            </div>
+          </div>
+        </div>
+		  <div class="relative mb-12 reveal" style="transition-delay:0.1s;">
+          <div class="timeline-dot" style="border-color:var(--accent2);"></div><br>
+          <div class="md:w-[calc(50%-40px)] md:mr-auto">
+            <div class="glass p-6">
+              <span class="text-accent-blue text-xs font-semibold tracking-wider uppercase">2025 &bull; Passed</span>
+              <h3 class="font-poppins font-semibold text-lg mt-1">G.C.E Advanced Level Examination</h3>
+              <p class="text-txt-secondary text-sm mt-2">Results: <span class="text-accent-cyan font-semibold">1B, 2C</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="relative mb-12 reveal" style="transition-delay:0.2s;">
+          <div class="timeline-dot" style="border-color:var(--accent3);"></div><br>
+          <div class="md:w-[calc(50%-40px)] md:ml-auto">
+            <div class="glass p-6">
+              <span class="text-accent-purple text-xs font-semibold tracking-wider uppercase">Completed</span>
+              <h3 class="font-poppins font-semibold text-lg mt-1">Sri Paraksrama Maha Vidyalaya</h3>
+              <p class="text-txt-secondary text-sm mt-1">Secondary Education</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative reveal" style="transition-delay:0.3s;">
+          <div class="timeline-dot" style="border-color:#c084fc;"></div><br>
+          <div class="md:w-[calc(50%-40px)] md:mr-auto">
+            <div class="glass p-6">
+              <span class="text-accent-pink text-xs font-semibold tracking-wider uppercase">Completed</span>
+              <h3 class="font-poppins font-semibold text-lg mt-1">Habarakada Kanishta Vidyalaya</h3>
+              <p class="text-txt-secondary text-sm mt-1">Primary Education</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section-padding" style="background:linear-gradient(180deg, transparent 0%, rgba(79,124,255,0.015) 50%, transparent 100%);">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">Experience</p>
+        <h2 class="section-title gradient-text reveal">Where I've Worked</h2>
+      </div>
+      <div class="relative pl-12 md:pl-0">
+        <div class="timeline-line"></div>
+        <div class="relative mb-12 reveal">
+          <div class="timeline-dot"></div>
+          <div class="md:w-[calc(50%-40px)] md:ml-auto">
+            <div class="glass p-6">
+              <span class="text-accent-cyan text-xs font-semibold tracking-wider uppercase">2024 &bull; 1 Month</span>
+              <h3 class="font-poppins font-semibold text-lg mt-1">Heal Zone Animal Clinic</h3>
+              <p class="text-txt-muted text-sm mb-1">Meegoda, Sri Lanka</p>
+              <p class="text-accent-blue text-sm font-medium mb-3">Veterinary Clinic Support Worker</p>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-cyan text-[10px] mt-1.5 flex-shrink-0"></i>Client reception and visitor management</li>
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-cyan text-[10px] mt-1.5 flex-shrink-0"></i>Medical record handling and documentation</li>
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-cyan text-[10px] mt-1.5 flex-shrink-0"></i>Clinic organization and equipment maintenance</li>
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-cyan text-[10px] mt-1.5 flex-shrink-0"></i>Team collaboration and operational support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="relative reveal" style="transition-delay:0.1s;">
+          <div class="timeline-dot" style="border-color:var(--accent2);"></div>
+          <div class="md:w-[calc(50%-40px)] md:mr-auto">
+            <div class="glass p-6">
+              <span class="text-accent-blue text-xs font-semibold tracking-wider uppercase">2024 &bull; In Course</span>
+              <h3 class="font-poppins font-semibold text-lg mt-1">IHRM Institute</h3>
+              <p class="text-txt-muted text-sm mb-1">Sri Lanka</p>
+              <p class="text-accent-blue text-sm font-medium mb-3">Student Worker</p>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-blue text-[10px] mt-1.5 flex-shrink-0"></i>Student record coordination</li>
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-blue text-[10px] mt-1.5 flex-shrink-0"></i>Course communication support</li>
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-blue text-[10px] mt-1.5 flex-shrink-0"></i>Practical HRM application</li>
+                <li class="flex items-start gap-2 text-txt-secondary text-sm"><i class="fas fa-chevron-right text-accent-blue text-[10px] mt-1.5 flex-shrink-0"></i>Team collaboration on institute events</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section-padding">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">Certifications</p>
+        <h2 class="section-title gradient-text reveal">Credentials</h2>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-5">
+        <div class="glass p-6 text-center tilt-card reveal float" style="transition-delay:0.05s;">
+          <div class="tilt-card-inner">
+            <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,rgba(0,212,255,0.1),rgba(79,124,255,0.1));box-shadow:var(--glow);">
+              <i class="fas fa-award text-accent-cyan text-xl"></i>
+            </div>
+            <h3 class="font-poppins font-semibold text-sm mb-1">CCHRM</h3>
+            <p class="text-txt-muted text-xs mb-2">Certificate Coures in HRM</p>
+            <span class="text-accent-cyan text-xs font-medium">2023</span>
+          </div>
+        </div>
+        <div class="glass p-6 text-center tilt-card reveal float-delay" style="transition-delay:0.1s;">
+          <div class="tilt-card-inner">
+            <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,rgba(79,124,255,0.1),rgba(139,92,246,0.1));box-shadow:var(--glow2);">
+              <i class="fas fa-graduation-cap text-accent-blue text-xl"></i>
+            </div>
+            <h3 class="font-poppins font-semibold text-sm mb-1">Dip.HRM</h3>
+            <p class="text-txt-muted text-xs mb-2">Diploma in Human Resource Management</p>
+            <span class="text-accent-blue text-xs font-medium">2024</span>
+          </div>
+        </div>
+        <div class="glass p-6 text-center tilt-card reveal float" style="transition-delay:0.15s;">
+          <div class="tilt-card-inner">
+            <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(192,132,252,0.1));box-shadow:0 0 30px rgba(139,92,246,0.25);">
+              <i class="fas fa-robot text-accent-purple text-xl"></i>
+            </div>
+            <h3 class="font-poppins font-semibold text-sm mb-1">ICT with AI</h3>
+            <p class="text-txt-muted text-xs mb-2">Information Technology & Artificial Intelligence</p>
+            <span class="text-accent-purple text-xs font-medium">Ongoing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section-padding" style="background:linear-gradient(180deg, transparent 0%, rgba(139,92,246,0.015) 50%, transparent 100%);">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">Services</p>
+        <h2 class="section-title gradient-text reveal">What I Offer</h2>
+        <p class="section-subtitle mx-auto reveal">Professional services tailored to bring your vision to life.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="glass p-7 tilt-card reveal group" style="transition-delay:0.05s;">
+          <div class="tilt-card-inner">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 transition-all group-hover:scale-110" style="background:linear-gradient(135deg,rgba(0,212,255,0.1),rgba(0,212,255,0.02));">
+              <i class="fas fa-paint-brush text-accent-cyan text-lg"></i>
+            </div>
+            <h3 class="font-poppins font-semibold text-base mb-2">Graphic Design</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">Professional visual designs including logos, branding materials, social media graphics, and marketing collateral.</p>
+          </div>
+        </div>
+        <div class="glass p-7 tilt-card reveal group" style="transition-delay:0.1s;">
+          <div class="tilt-card-inner">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 transition-all group-hover:scale-110" style="background:linear-gradient(135deg,rgba(79,124,255,0.1),rgba(79,124,255,0.02));">
+              <i class="fas fa-code text-accent-blue text-lg"></i>
+            </div>
+            <h3 class="font-poppins font-semibold text-base mb-2">Basic Website Creation</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">Clean, modern, and responsive websites built with attention to detail and user experience in mind.</p>
+          </div>
+        </div>
+        
+        <div class="glass p-7 tilt-card reveal group" style="transition-delay:0.2s;">
+          <div class="tilt-card-inner">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 transition-all group-hover:scale-110" style="background:linear-gradient(135deg,rgba(192,132,252,0.1),rgba(192,132,252,0.02));">
+              <i class="fas fa-wand-magic-sparkles text-accent-pink text-lg"></i>
+            </div>
+            <h3 class="font-poppins font-semibold text-base mb-2">Creative Design Support</h3>
+            <p class="text-txt-secondary text-sm leading-relaxed">Collaborative creative assistance for projects requiring a fresh perspective and artistic problem-solving.</p>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="section-padding">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">Connect</p>
+      <h2 class="section-title gradient-text reveal mb-4">Let's Stay in Touch</h2>
+      <p class="text-txt-secondary text-sm mb-8 reveal">Follow me on social media or reach out directly.</p>
+      <div class="flex flex-wrap justify-center gap-3 reveal" style="transition-delay:0.1s;">
+        <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:mkavishka778@gmail.com" class="social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section-padding" style="background:linear-gradient(180deg, transparent 0%, rgba(0,212,255,0.015) 50%, transparent 100%);">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-accent-cyan text-sm font-semibold tracking-widest uppercase mb-2 reveal">Contact</p>
+        <h2 class="section-title gradient-text reveal">Get in Touch</h2>
+        <p class="section-subtitle mx-auto reveal">Fill in the form below and send your message directly via WhatsApp.</p>
+      </div>
+      <div class="grid md:grid-cols-5 gap-6">
+        <div class="md:col-span-2 space-y-4">
+          <div class="glass p-5 flex items-center gap-4 reveal" style="transition-delay:0.05s;">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);"><i class="fas fa-envelope text-accent-cyan text-sm"></i></div>
+            <div>
+              <p class="text-txt-muted text-xs uppercase tracking-wider">Email</p>
+              <a href="mailto:mkavishka778@gmail.com" class="text-sm font-medium hover:text-accent-cyan transition-colors">mkavishka778@gmail.com</a>
+            </div>
+          </div>
+          <div class="glass p-5 flex items-center gap-4 reveal" style="transition-delay:0.1s;">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(37,211,102,0.08);"><i class="fab fa-whatsapp text-green-400 text-sm"></i></div>
+            <div>
+              <p class="text-txt-muted text-xs uppercase tracking-wider">WhatsApp</p>
+              <a href="https://wa.me/94755210975" target="_blank" class="text-sm font-medium hover:text-green-400 transition-colors">+94 75 478 0481</a>
+            </div>
+          </div>
+          <div class="glass p-5 flex items-center gap-4 reveal" style="transition-delay:0.15s;">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(139,92,246,0.08);"><i class="fas fa-location-dot text-accent-purple text-sm"></i></div>
+            <div>
+              <p class="text-txt-muted text-xs uppercase tracking-wider">Location</p>
+              <p class="text-sm font-medium">Meegoda, Sri Lanka</p>
+            </div>
+          </div>
+          <!-- WhatsApp quick chat card -->
+          <div class="glass p-5 reveal" style="transition-delay:0.2s;border-color:rgba(37,211,102,0.15);">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(37,211,102,0.1);"><i class="fab fa-whatsapp text-green-400"></i></div>
+              <div>
+                <p class="text-sm font-semibold">Quick Chat</p>
+                <p class="text-txt-muted text-xs">Prefer WhatsApp? Tap below</p>
+              </div>
+            </div>
+            <a href="https://wa.me/94755210975?text=Hi%20Kavishka%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20chat!" target="_blank" class="btn-whatsapp w-full justify-center text-sm" style="cursor:none;">
+              <i class="fab fa-whatsapp"></i> Open WhatsApp Chat
+            </a>
+          </div>
+        </div>
+        <div class="md:col-span-3 glass-strong p-6 reveal" style="transition-delay:0.2s;">
+          <form id="contactForm" class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-txt-muted text-xs uppercase tracking-wider mb-1.5 block">Your Name</label>
+                <input type="text" id="waName" required placeholder="Your name" class="w-full px-4 py-3 rounded-xl text-sm bg-white/[0.03] border border-white/[0.06] text-white placeholder:text-txt-muted focus:outline-none focus:border-green-500/40 transition-colors" style="backdrop-filter:blur(10px);">
+              </div>
+              <div>
+                <label class="text-txt-muted text-xs uppercase tracking-wider mb-1.5 block">Your Email</label>
+                <input type="email" id="waEmail" placeholder="your@email.com" class="w-full px-4 py-3 rounded-xl text-sm bg-white/[0.03] border border-white/[0.06] text-white placeholder:text-txt-muted focus:outline-none focus:border-green-500/40 transition-colors" style="backdrop-filter:blur(10px);">
+              </div>
+            </div>
+            <div>
+              <label class="text-txt-muted text-xs uppercase tracking-wider mb-1.5 block">Subject</label>
+              <input type="text" id="waSubject" required placeholder="e.g. Graphic Design Inquiry" class="w-full px-4 py-3 rounded-xl text-sm bg-white/[0.03] border border-white/[0.06] text-white placeholder:text-txt-muted focus:outline-none focus:border-green-500/40 transition-colors" style="backdrop-filter:blur(10px);">
+            </div>
+            <div>
+              <label class="text-txt-muted text-xs uppercase tracking-wider mb-1.5 block">Message</label>
+              <textarea rows="4" id="waMessage" required placeholder="Tell me about your project or inquiry..." class="w-full px-4 py-3 rounded-xl text-sm bg-white/[0.03] border border-white/[0.06] text-white placeholder:text-txt-muted focus:outline-none focus:border-green-500/40 transition-colors resize-none" style="backdrop-filter:blur(10px);"></textarea>
+            </div>
+            <button type="submit" class="btn-whatsapp w-full justify-center" style="cursor:none;">
+              <i class="fab fa-whatsapp"></i> Send via WhatsApp
+            </button>
+            <p class="text-txt-muted text-xs text-center mt-2"><i class="fas fa-info-circle mr-1"></i>Clicking the button will open WhatsApp with your message pre-filled.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="relative z-10 border-t border-white/[0.04] py-8 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+    <p class="text-txt-muted text-sm"> Kavishka Madhushan. All rights reserved.</p>
+    <p class="text-txt-muted text-xs">Crafted with <span class="text-accent-cyan">passion</span> and <span class="text-accent-purple">precision</span></p>
+  </div>
+</footer>
+
+<script>
+const skillsData = [
+  { name: 'Graphic Design', icon: 'fa-palette', color: '#00d4ff', percent: 90 },
+  { name: 'Creating Web Pages', icon: 'fa-code', color: '#4f7cff', percent: 70 },
+  { name: 'Drawing & Digital Arts', icon: 'fa-pen-nib', color: '#8b5cf6', percent: 85 },
+  { name: 'Team Work', icon: 'fa-people-group', color: '#c084fc', percent: 90 },
+  { name: 'Good Communication', icon: 'fa-comments', color: '#00d4ff', percent: 75 },
+  { name: 'Time Management', icon: 'fa-clock', color: '#4f7cff', percent: 90 },
+  { name: 'AI & Technology Learning', icon: 'fa-robot', color: '#00d4ff', percent: 65 }
+];
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    initAnimations();
+  }, 1200);
+});
+
+// CUSTOM CURSOR
+const cursorDot = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px';
+  const ml = document.getElementById('mouse-light');
+  ml.style.left = mouseX + 'px'; ml.style.top = mouseY + 'px';
+});
+function animateCursorRing() {
+  ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
+  cursorRing.style.left = ringX + 'px'; cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateCursorRing);
+}
+animateCursorRing();
+document.addEventListener('mouseover', (e) => {
+  if (e.target.closest('a, button, input, textarea, .social-icon, .btn-glow, .btn-whatsapp, .tilt-card')) {
+    cursorDot.classList.add('hover'); cursorRing.classList.add('hover');
+  }
+});
+document.addEventListener('mouseout', (e) => {
+  if (e.target.closest('a, button, input, textarea, .social-icon, .btn-glow, .btn-whatsapp, .tilt-card')) {
+    cursorDot.classList.remove('hover'); cursorRing.classList.remove('hover');
+  }
+});
+
+// PARTICLES
+tsParticles.load("particles", {
+  fullScreen: false,
+  background: { color: 'transparent' },
+  fpsLimit: 60,
+  particles: {
+    number: { value: 60, density: { enable: true, area: 900 } },
+    color: { value: ['#00d4ff', '#4f7cff', '#8b5cf6'] },
+    shape: { type: 'circle' },
+    opacity: { value: { min: 0.1, max: 0.4 }, animation: { enable: true, speed: 0.5, minimumValue: 0.1 } },
+    size: { value: { min: 1, max: 2.5 } },
+    move: { enable: true, speed: 0.6, direction: 'none', random: true, straight: false, outModes: 'out' },
+    links: { enable: true, distance: 150, color: '#00d4ff', opacity: 0.08, width: 1 }
+  },
+  interactivity: {
+    events: { onHover: { enable: true, mode: 'grab' }, onClick: { enable: false } },
+    modes: { grab: { distance: 180, links: { opacity: 0.2, color: '#00d4ff' } } }
+  },
+  detectRetina: true
+});
+
+// TYPING
+const typingPhrases = ['Graphic Design', 'Human Resource Management', 'Web Creation',  'Digital Arts'];
+let phraseIdx = 0, charIdx = 0, isDeleting = false;
+const typingEl = document.getElementById('typing-text');
+function typeLoop() {
+  const current = typingPhrases[phraseIdx];
+  if (!isDeleting) {
+    typingEl.textContent = current.substring(0, charIdx + 1); charIdx++;
+    if (charIdx === current.length) { isDeleting = true; setTimeout(typeLoop, 1800); return; }
+    setTimeout(typeLoop, 70);
+  } else {
+    typingEl.textContent = current.substring(0, charIdx - 1); charIdx--;
+    if (charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % typingPhrases.length; setTimeout(typeLoop, 400); return; }
+    setTimeout(typeLoop, 35);
+  }
+}
+setTimeout(typeLoop, 1500);
+
+// NAVIGATION
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
+function updateActiveNav() {
+  const scrollY = window.scrollY + 120;
+  sections.forEach(sec => {
+    const top = sec.offsetTop, height = sec.offsetHeight, id = sec.getAttribute('id');
+    if (scrollY >= top && scrollY < top + height) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[data-section="${id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+
+// HAMBURGER
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+let menuOpen = false;
+hamburger.addEventListener('click', () => {
+  menuOpen = !menuOpen; mobileMenu.classList.toggle('open', menuOpen);
+  const h1 = document.getElementById('ham1'), h2 = document.getElementById('ham2'), h3 = document.getElementById('ham3');
+  if (menuOpen) {
+    h1.style.transform = 'rotate(45deg) translate(4px, 4px)'; h2.style.opacity = '0';
+    h3.style.transform = 'rotate(-45deg) translate(4px, -4px)'; h3.style.width = '20px'; h3.style.marginLeft = '0';
+  } else { h1.style.transform = ''; h2.style.opacity = '1'; h3.style.transform = ''; h3.style.width = ''; h3.style.marginLeft = ''; }
+});
+function closeMobile() {
+  menuOpen = false; mobileMenu.classList.remove('open');
+  document.getElementById('ham1').style.transform = ''; document.getElementById('ham2').style.opacity = '1';
+  const h3 = document.getElementById('ham3'); h3.style.transform = ''; h3.style.width = ''; h3.style.marginLeft = '';
+}
+
+// SCROLL TO TOP
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => { scrollTopBtn.classList.toggle('visible', window.scrollY > 600); });
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// DOWNLOAD CV
+document.getElementById('downloadCV').addEventListener('click', (e) => {
+  e.preventDefault();
+  const cvText = `KAVISHKA MADHUSHAN\n==================\nLocation: Meegoda, Sri Lanka\nPhone: +94 75 521 0975\nEmail: mkavishka778@gmail.com\n\nPROFILE\n-------\nA motivated and detail-oriented individual with practical experience in graphic design, human resource management, and animal clinic support work.\n\nSKILLS\n------\n- Graphic Design\n- Creating Web Pages\n- Drawing & Digital Arts\n- Team Work\n- Good Communication\n- Time Management\n- HRM Knowledge\n- Digital Content Creation\n- AI & Technology Learning\n\nEDUCATION\n---------\nDiploma in Human Resource Management (Dip.HRM) - IHRM Institute, 2024\nG.C.E Advanced Level - 2025 (1A, 2B, 4C, 2S)\nSri Paraksrama Maha Vidyalaya\nHabarakada Kanishta Vidyalaya\n\nEXPERIENCE\n----------\nVeterinary Clinic Support Worker - Heal Zone Animal Clinic, 2024\nStudent Worker - IHRM Institute, 2024 (In Course)\n\nCERTIFICATIONS\n--------------\nCCHRM - Certificate in Core HRM (2023)\nDiploma in HRM (2024)\nICT with AI - Ongoing\n\nLANGUAGES\n---------\nSinhala (Native)\nEnglish (Professional)`;
+  const blob = new Blob([cvText], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'Kavishka_Madhusahn_CV.pdf';
+  a.click(); URL.revokeObjectURL(url);
+});
+
+// WHATSAPP FORM SEND
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('waName').value.trim();
+  const email = document.getElementById('waEmail').value.trim();
+  const subject = document.getElementById('waSubject').value.trim();
+  const message = document.getElementById('waMessage').value.trim();
+
+  // Build the WhatsApp message text
+  let waText = `Hi Kavishka, I'm contacting you from your portfolio website.\n\n`;
+  waText += `*Name:* ${name}\n`;
+  if (email) waText += `*Email:* ${email}\n`;
+  waText += `*Subject:* ${subject}\n\n`;
+  waText += `*Message:*\n${message}`;
+
+  // Encode and open WhatsApp
+  const waUrl = `https://wa.me/94755210975?text=${encodeURIComponent(waText)}`;
+  window.open(waUrl, '_blank');
+
+  // Reset form after short delay
+  setTimeout(() => {
+    document.getElementById('contactForm').reset();
+  }, 500);
+});
+
+// RENDER SKILLS
+const skillsGrid = document.getElementById('skills-grid');
+skillsData.forEach((s, i) => {
+  skillsGrid.innerHTML += `
+    <div class="glass p-5 tilt-card reveal" style="transition-delay:${i * 0.05}s;">
+      <div class="tilt-card-inner">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:${s.color}15;">
+              <i class="fas ${s.icon}" style="color:${s.color};font-size:0.85rem;"></i>
+            </div>
+            <span class="font-medium text-sm">${s.name}</span>
+          </div>
+          <span class="text-xs font-semibold" style="color:${s.color};">${s.percent}%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-width="${s.percent}" style="background:linear-gradient(90deg,${s.color},${s.color}88);"></div>
+        </div>
+      </div>
+    </div>`;
+});
+
+// GSAP ANIMATIONS
+function initAnimations() {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el, { opacity: 0, y: 40 }, {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    });
+  });
+  gsap.utils.toArray('.reveal-scale').forEach(el => {
+    gsap.fromTo(el, { opacity: 0, scale: 0.9 }, {
+      opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    });
+  });
+  gsap.utils.toArray('.skill-bar-fill').forEach(bar => {
+    const w = bar.getAttribute('data-width');
+    ScrollTrigger.create({ trigger: bar, start: 'top 90%', once: true, onEnter: () => { bar.style.width = w + '%'; } });
+  });
+  gsap.utils.toArray('.counter').forEach(counter => {
+    const target = parseInt(counter.getAttribute('data-target'));
+    const obj = { val: 0 };
+    ScrollTrigger.create({ trigger: counter, start: 'top 90%', once: true, onEnter: () => {
+      gsap.to(obj, { val: target, duration: 1.5, ease: 'power2.out', onUpdate: () => { counter.textContent = Math.round(obj.val); } });
+    }});
+  });
+  gsap.to('.blob-1', { y: -80, scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 } });
+  gsap.to('.blob-2', { y: 60, scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1.5 } });
+  gsap.to('.blob-3', { y: -40, scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 2 } });
+}
+
+// TILT EFFECT
+document.addEventListener('mousemove', (e) => {
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+      const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -5;
+      const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 5;
+      const inner = card.querySelector('.tilt-card-inner');
+      if (inner) inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    } else {
+      const inner = card.querySelector('.tilt-card-inner');
+      if (inner) inner.style.transform = 'rotateX(0) rotateY(0)';
+    }
+  });
+});
+
+// MAGNETIC BUTTON
+document.querySelectorAll('.btn-glow, .btn-whatsapp').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+  });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+});
+
+// NAVBAR HIDE/SHOW
+let lastScroll = 0;
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  const current = window.scrollY;
+  if (current > lastScroll && current > 200) {
+    navbar.style.transform = 'translate(-50%, -100px)'; navbar.style.transition = 'transform 0.4s';
+  } else {
+    navbar.style.transform = 'translate(-50%, 0)'; navbar.style.transition = 'transform 0.4s';
+  }
+  lastScroll = current;
+});
+</script>
+</body>
+</html>
